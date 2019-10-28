@@ -1,16 +1,14 @@
 ﻿using Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace ViewModel
 {
-    
-    public class ViewModelImpl 
+
+    public class BrowserViewModel
     {
 
         private ObservableCollection<NameSpace> _nameSpaces { get; set; }
@@ -22,7 +20,6 @@ namespace ViewModel
                 _nameSpaces = value;
             }
         }
-
 
         public void UploadNameSpaces(string path)
         {
@@ -41,17 +38,18 @@ namespace ViewModel
                     foreach (var type in types)
                     {
 
-                        if(GetNameSpaceObjIfExist(nameSpaces, type.Namespace, out NameSpace nameSpace))
+                        if (GetNameSpaceObjIfExist(nameSpaces, type.Namespace, out NameSpace nameSpace))
                         {
-
+                            nameSpace.Classes.Add(new Class(type));
                         }
                         else
                         {
-                            nameSpace = new NameSpace(type.Namespace);
-                           
+                            nameSpace.Classes.Add(new Class(type));
                         }
                     }
                 }
+                Console.WriteLine(nameSpaces.Count);
+                NameSpaces = nameSpaces;
             }
         }
 
@@ -65,21 +63,12 @@ namespace ViewModel
             }
             else
             {
-                nameSpace = null;
+                nameSpace = new NameSpace(name);
+                nameSpaces.Add(nameSpace);
                 return false;
             }
         }
 
-        private void AddProperties(Type type, Dictionary<string, object> initialized, object dto)
-        {
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
-            foreach (var property in properties)
-            {
-                if (property.CanWrite && (!initialized.ContainsKey(property.Name)))
-                {
-                    property.SetValue(dto, GenerateValue(property.PropertyType));
-                }
-            }
-        }
+
     }
 }

@@ -1,17 +1,32 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Windows.Data;
 
 namespace Model
 {
     public class Class
     {
+        
 
         public string Name { get; set; }
 
         public ObservableCollection<Field> Fields { get; set; }
 
         public ObservableCollection<Method> Methods { get; set; }
+
+        public ICollection Collection
+        {
+            get
+            {
+                return new CompositeCollection()
+                {
+                    new CollectionContainer() { Collection = Fields },
+                    new CollectionContainer() { Collection = Methods }
+                };
+            }
+        }
 
         public Class(Type type)
         {
@@ -56,9 +71,5 @@ namespace Model
             }
         }
 
-        /*private void ExtensionMethods(Type type)
-        {
-            MethodInfo[] extMethods = type.Assembly.GetEx
-        }*/
     }
 }

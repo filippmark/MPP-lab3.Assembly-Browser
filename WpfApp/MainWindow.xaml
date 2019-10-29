@@ -4,19 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
+        xmlns:model="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TreeView x:Name="treeView1" Margin="-1298,0,-1282,-1756">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=NameSpaces}">
-                      <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-    </Grid>
+
+    <TreeView ItemsSource="{Binding Path=NameSpaces}">
+        <TreeView.Resources>
+            <HierarchicalDataTemplate DataType="{x:Type model:NameSpace}" ItemsSource="{Binding Path=Classes}">
+                <TextBlock Text="{Binding Name}"/>
+            </HierarchicalDataTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type model:Class}" ItemsSource="{Binding Path=Collection}">
+                <TextBlock Text="{Binding Name}"/>
+            </HierarchicalDataTemplate>
+            <DataTemplate DataType="{x:Type model:Field}">
+                <TextBlock Text="{Binding TypeWithName}"/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type model:Method}">
+                <TextBlock Text="{Binding Signature}"/>
+            </DataTemplate>
+        </TreeView.Resources>
+    </TreeView>
 </Window>

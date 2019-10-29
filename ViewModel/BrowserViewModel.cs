@@ -21,11 +21,17 @@ namespace ViewModel
             }
         }
 
-        public void UploadNameSpaces(string path)
+        public BrowserViewModel()
+        {
+            UploadNameSpaces(@"C:\Users\lenovo\source\repos\MPP-lab2.Faker1\Faker\bin\Debug\netcoreapp3.0");
+        }
+
+
+        private void UploadNameSpaces(string path)
         {
             ObservableCollection<NameSpace> nameSpaces = new ObservableCollection<NameSpace>();
             var pluginDirectory = new DirectoryInfo(path);
-
+ 
             if (pluginDirectory.Exists)
             {
                 string[] pluginFiles = Directory.GetFiles(path, "*.dll");
@@ -50,6 +56,10 @@ namespace ViewModel
                 }
                 Console.WriteLine(nameSpaces.Count);
                 NameSpaces = nameSpaces;
+                foreach(var ns in NameSpaces)
+                {
+                    Console.WriteLine(ns.Name);
+                }
             }
         }
 

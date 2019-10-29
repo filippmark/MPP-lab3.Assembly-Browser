@@ -25,8 +25,7 @@ namespace WpfApp
         {
             InitializeComponent();
             var browser = new BrowserViewModel();
-            browser.UploadNameSpaces(@"C:\Users\lenovo\source\repos\lr3AssemblyBrowser\Model\bin\Debug\netcoreapp3.0");
-            treeView1.ItemsSource = browser.NameSpaces;
+            DataContext = browser;
         }
 
     }

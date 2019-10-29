@@ -16,7 +16,7 @@ namespace Model
         {
             var parametrs = methodInfo.GetParameters().Select(t => t.ParameterType + " " + t.Name);
             var parametrInfo = string.Join(',', parametrs);
-            string info = $"{methodInfo.ReturnType} {methodInfo.Name}({parametrs})";
+            string info = $"{methodInfo.ReturnType} {methodInfo.Name}({parametrInfo})";
             return info;
         }
 

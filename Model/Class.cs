@@ -16,7 +16,7 @@ namespace Model
 
         public ObservableCollection<Method> Methods { get; set; }
 
-        public ICollection Collection
+        /*public ICollection Collection
         {
             get
             {
@@ -26,7 +26,7 @@ namespace Model
                     new CollectionContainer() { Collection = Methods }
                 };
             }
-        }
+        }*/
 
         public Class(Type type)
         {

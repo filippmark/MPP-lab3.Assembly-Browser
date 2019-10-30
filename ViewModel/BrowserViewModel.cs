@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace ViewModel
 {
@@ -30,20 +31,17 @@ namespace ViewModel
             get
             {
                 return openCommand ??
-                  (openCommand = new RelayCommand(obj =>
-                  {
-                      try
-                      {
-                          if (dialogService.OpenFileDialog() == true)
-                          {
-                              var phones = fileService.Open(dialogService.FilePath);
-                          }
-                      }
-                      catch (Exception ex)
-                      {
-                          dialogService.ShowMessage(ex.Message);
-                      }
-                  }));
+                    (openCommand = new RelayCommand(obj =>
+                    {
+                        Console.WriteLine("here");
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        if(openFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            var FilePath = openFileDialog.FileName;
+                        }
+                        
+                        
+                    }));
             }
         }
 

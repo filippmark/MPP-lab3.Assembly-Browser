@@ -17,7 +17,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Open"/>
+            <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
         </Menu>
         <TreeView Grid.Row="1" ItemsSource="{Binding Path=NameSpaces}">
             <TreeView.Resources>

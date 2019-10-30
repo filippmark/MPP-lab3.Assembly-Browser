@@ -1,9 +1,11 @@
 ﻿using Model;
+using MVVM;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Win32;
 
 namespace ViewModel
 {
@@ -21,9 +23,33 @@ namespace ViewModel
             }
         }
 
+        
+        private RelayCommand openCommand;
+        public RelayCommand OpenCommand
+        {
+            get
+            {
+                return openCommand ??
+                  (openCommand = new RelayCommand(obj =>
+                  {
+                      try
+                      {
+                          if (dialogService.OpenFileDialog() == true)
+                          {
+                              var phones = fileService.Open(dialogService.FilePath);
+                          }
+                      }
+                      catch (Exception ex)
+                      {
+                          dialogService.ShowMessage(ex.Message);
+                      }
+                  }));
+            }
+        }
+
         public BrowserViewModel()
         {
-            UploadNameSpaces(@"C:\Users\lenovo\source\repos\MPP-lab2.Faker1\Faker\bin\Debug\netcoreapp3.0");
+            UploadNameSpaces(@"C:\Users\Filip.Markovich\Source\Repos\MPP-lab2.Faker11111\Faker\bin\Debug\netcoreapp3.0");
         }
 
 

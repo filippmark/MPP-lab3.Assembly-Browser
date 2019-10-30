@@ -41,7 +41,7 @@ namespace Model
 
         private void AddProperties(Type type)
         {
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
+            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var property in properties)
             {
                 string info = $"{property.PropertyType} {property.Name}";
@@ -52,7 +52,7 @@ namespace Model
 
         private void AddFields(Type type)
         {
-            FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
+            FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var fieldInfo in fields)
             {
                 string info = $"{fieldInfo.FieldType} {fieldInfo.Name}";

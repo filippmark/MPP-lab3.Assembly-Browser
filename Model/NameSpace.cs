@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Model
 {
-    public class NameSpace : INotifyPropertyChanged
+    public class NameSpace
     {
 
         public string Name { get; set; }
@@ -17,11 +17,5 @@ namespace Model
             Classes = new ObservableCollection<Class>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            handler(this, new PropertyChangedEventArgs(name));
-        }
     }
 }

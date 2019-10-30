@@ -78,12 +78,5 @@ namespace Model
             Methods = methodsColl;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            handler(this, new PropertyChangedEventArgs(name));
-        }
-
     }
 }

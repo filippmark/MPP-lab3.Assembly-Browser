@@ -8,6 +8,9 @@
     <Reference Include="PresentationFramework">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\PresentationFramework.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\WindowsBase.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

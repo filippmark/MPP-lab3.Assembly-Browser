@@ -7,11 +7,12 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Win32;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ViewModel
 {
 
-    public class BrowserViewModel
+    public class BrowserViewModel : INotifyPropertyChanged
     {
 
         private ObservableCollection<NameSpace> _nameSpaces { get; set; }
@@ -21,6 +22,7 @@ namespace ViewModel
             set
             {
                 _nameSpaces = value;
+                OnPropertyChanged("NameSpaces");
             }
         }
 
@@ -37,17 +39,17 @@ namespace ViewModel
                         FolderBrowserDialog dialog = new FolderBrowserDialog();
                         if(dialog.ShowDialog() == DialogResult.OK)
                         {
-                            var FilePath = dialog.SelectedPath;
+                            UploadNameSpaces(dialog.SelectedPath);
+                            Console.WriteLine(NameSpaces.Count);
                         }
-                        
-                        
                     }));
             }
         }
 
         public BrowserViewModel()
         {
-            UploadNameSpaces(@"C:\Users\Filip.Markovich\Source\Repos\MPP-lab2.Faker11111\Faker\bin\Debug\netcoreapp3.0");
+            //NameSpaces = new ObservableCollection<NameSpace>();
+            //UploadNameSpaces(@"C:\Users\Filip.Markovich\Source\Repos\MPP-lab2.Faker11111\Faker\bin\Debug\netcoreapp3.0");
         }
 
 
@@ -103,6 +105,11 @@ namespace ViewModel
             }
         }
 
-
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            handler(this, new PropertyChangedEventArgs(name));
+        }
     }
 }

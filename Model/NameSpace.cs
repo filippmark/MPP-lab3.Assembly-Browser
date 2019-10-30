@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Model
 {
-    public class NameSpace
+    public class NameSpace : INotifyPropertyChanged
     {
 
         public string Name { get; set; }
@@ -14,6 +15,13 @@ namespace Model
 
             Name = name;
             Classes = new ObservableCollection<Class>();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            handler(this, new PropertyChangedEventArgs(name));
         }
     }
 }

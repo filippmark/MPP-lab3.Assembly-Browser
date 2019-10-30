@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Data;
 
@@ -12,11 +13,13 @@ namespace Model
 
         public string Name { get; set; }
 
+
+
         public ObservableCollection<Field> Fields { get; set; }
 
         public ObservableCollection<Method> Methods { get; set; }
 
-        /*public ICollection Collection
+        public ICollection Collection
         {
             get
             {
@@ -26,7 +29,7 @@ namespace Model
                     new CollectionContainer() { Collection = Methods }
                 };
             }
-        }*/
+        }
 
         public Class(Type type)
         {
@@ -34,41 +37,52 @@ namespace Model
             Fields = new ObservableCollection<Field>();
             Methods = new ObservableCollection<Method>();
 
-            AddProperties(type);
-            AddFields(type);
+            ObservableCollection<Field> fields = new ObservableCollection<Field>();
+            AddProperties(type, fields);
+            AddFields(type, fields);
+            Fields = fields;
             AddMethods(type);
         }
 
-        private void AddProperties(Type type)
+        private void AddProperties(Type type, ObservableCollection<Field> fields)
         {
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var property in properties)
             {
                 string info = $"{property.PropertyType} {property.Name}";
                 var field = new Field(info);
-                Fields.Add(field);
+                fields.Add(field);
             }
         }
 
-        private void AddFields(Type type)
+        private void AddFields(Type type, ObservableCollection<Field> fieldsColl)
         {
             FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var fieldInfo in fields)
             {
                 string info = $"{fieldInfo.FieldType} {fieldInfo.Name}";
                 var field = new Field(info);
-                Fields.Add(field);
+                fieldsColl.Add(field);
             }
         }
 
         private void AddMethods(Type type)
         {
             MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+            ObservableCollection<Method> methodsColl = new ObservableCollection<Method>();
             foreach (var methodInfo in methods)
             {
                 var method = new Method(methodInfo);
-                Methods.Add(method);
+                methodsColl.Add(method);
             }
+            Methods = methodsColl;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            handler(this, new PropertyChangedEventArgs(name));
         }
 
     }

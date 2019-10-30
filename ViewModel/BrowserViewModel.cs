@@ -34,10 +34,10 @@ namespace ViewModel
                     (openCommand = new RelayCommand(obj =>
                     {
                         Console.WriteLine("here");
-                        OpenFileDialog openFileDialog = new OpenFileDialog();
-                        if(openFileDialog.ShowDialog() == DialogResult.OK)
+                        FolderBrowserDialog dialog = new FolderBrowserDialog();
+                        if(dialog.ShowDialog() == DialogResult.OK)
                         {
-                            var FilePath = openFileDialog.FileName;
+                            var FilePath = dialog.SelectedPath;
                         }
                         
                         

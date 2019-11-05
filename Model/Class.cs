@@ -14,7 +14,6 @@ namespace Model
         public string Name { get; set; }
 
 
-
         public ObservableCollection<Field> Fields { get; set; }
 
         public ObservableCollection<Method> Methods { get; set; }

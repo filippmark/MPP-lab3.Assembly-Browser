@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "FakerImplementation/1.0.0": {
+        "dependencies": {
+          "Generators": "1.0.0"
+        },
+        "runtime": {
+          "FakerImplementation.dll": {}
+        }
+      },
+      "Generators/1.0.0": {
+        "runtime": {
+          "Generators.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FakerImplementation/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Generators/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
